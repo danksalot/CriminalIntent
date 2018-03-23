@@ -10,6 +10,7 @@ import com.jacobdanks.android.criminalintent.database.CrimeCursorWrapper;
 import com.jacobdanks.android.criminalintent.database.CrimeDbSchema;
 import com.jacobdanks.android.criminalintent.database.CrimeDbSchema.CrimeTable;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -82,6 +83,11 @@ public class CrimeLab {
 
     public void deleteCrime(UUID id) {
         mDatabase.delete(CrimeTable.NAME, CrimeTable.Cols.UUID + " = ?", new String[] { id.toString() });
+    }
+
+    public File getPhotoFile(Crime crime) {
+        File fileDir = mContext.getFilesDir();
+        return new File(fileDir, crime.getPhotoFilename());
     }
 
     private CrimeCursorWrapper queryCrimes(String whereClause, String[] whereArgs) {
